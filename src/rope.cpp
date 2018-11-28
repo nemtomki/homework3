@@ -13,37 +13,43 @@ class Rope{
 		Node *parent;
 		Node *left, *right;
 		unsigned int weight;
-		vector<char> szoveg;
+		char* szoveg;
 		Node(){
 			parent = nullptr;
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			szoveg = {};
+			szoveg = new char[3];
 		}
 		Node(string be){
 			parent = nullptr;
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
+			szoveg = new char[3];
 			for (size_t i = 0; i< be.size(); i++){
-				szoveg.push_back(be[i]);
+				szoveg[i] = be[i];
+				weight ++;
 			}
 		}
 		~Node();
 	};
 private:
 	unsigned int len;
+
 public:
 	Rope();
 	~Rope();
-	unsigned int Rope::length();
-	char Rope::index(const unsigned int) const;
-	static Rope Rope::concat (Rope& r1, Rope& r2);
-	static std::pair<Rope, Rope> Rope::split (Rope&, const unsigned int);
-	std::string Rope::report(unsigned int, unsigned int) const;
+	unsigned int length();
+	char index(const unsigned int) const;
+	static Rope concat (Rope& r1, Rope& r2);
+	static std::pair<Rope, Rope> split (Rope&, const unsigned int);
+	std::string report(unsigned int, unsigned int) const;
 };
 
+Rope::Rope(){
+	len = 0;
+}
 unsigned int Rope::length(){
 	return len;
 }
