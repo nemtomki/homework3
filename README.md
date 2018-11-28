@@ -34,7 +34,7 @@ lehet (például lehet a szöveget három karakterenként felosztani, vagy lehet
 felépíteni a fát).
 - [ ] A Rope tárolja a benne lévő karakterek számát, amit az unsigned int Rope::length()
 const függvény ad vissza. A hosszt O(1) időben kell karbantartani.
-char Rope::index(const unsigned int) const visszaadja a kapott indexű karaktert.
+- [ ] char Rope::index(const unsigned int) const visszaadja a kapott indexű karaktert.
 - [ ] static Rope Rope::concat(Rope& r1, Rope& r2) konkatenál két Rope -t. Ehhez létre kell
 hozni egy új gyökérelemet, aminek a bal gyereke lesz az r1 gyökere, jobb gyereke az r2
 gyökere. A visszaadott Rope tartalmazza r1, r2 tartalmát, az r1, r2 fák pedig üresek a
