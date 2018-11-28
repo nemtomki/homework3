@@ -1,0 +1,7 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=00000000
+eax=20A9FA30 ebx=00000000 ecx=0060C5DC edx=00000000 esi=20A926F8 edi=20A99718
+ebp=00000000 esp=0060C58C program=C:\Program Files (x86)\Git\usr\bin\perl.exe, pid 1168, thread main
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+End of stack trace
