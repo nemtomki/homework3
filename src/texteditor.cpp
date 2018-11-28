@@ -6,12 +6,14 @@
  */
 #include <iostream>
 #include <vector>
+#include <string>
 
 class TextEditor{
 private:
 	//valtozoi
 public:
 	unsigned int TextEditor::length() const;
+	void TextEditor::insert(string input);
 	void TextEditor::stepLeft();
 	void TextEditor::stepRight();
 	void TextEditor::moveCursor(const unsigned int);

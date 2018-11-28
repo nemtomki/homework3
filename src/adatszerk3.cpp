@@ -8,6 +8,7 @@
 
 // your solution comes here
 #include "rope.cpp"
+#include "texteditor.cpp"
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #include <chrono>

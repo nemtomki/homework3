@@ -30,6 +30,7 @@ class Rope{
 				szoveg.push_back(be[i]);
 			}
 		}
+		~Node();
 	};
 private:
 	unsigned int len;
@@ -42,6 +43,14 @@ public:
 	static std::pair<Rope, Rope> Rope::split (Rope&, const unsigned int);
 	std::string Rope::report(unsigned int, unsigned int) const;
 };
+
+unsigned int Rope::length(){
+	return len;
+}
+
+char Rope::index(const unsigned int x) const{
+	return 'x';
+}
 
 
 
