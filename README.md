@@ -28,24 +28,24 @@ std::string pufferrel kezelni).
 
 ### Rope specifikációi
 
-- Legyen paraméter nélküli és paraméteres konstruktor is ( std::string paraméter). A
+- [X] Legyen paraméter nélküli és paraméteres konstruktor is ( std::string paraméter). A
 konstruktorban a szöveg elosztása a levelek között (így a felépített fastruktúra) tetszőleges
 lehet (például lehet a szöveget három karakterenként felosztani, vagy lehet hosszfelezéssel
 felépíteni a fát).
-- A Rope tárolja a benne lévő karakterek számát, amit az unsigned int Rope::length()
+- [ ] A Rope tárolja a benne lévő karakterek számát, amit az unsigned int Rope::length()
 const függvény ad vissza. A hosszt O(1) időben kell karbantartani.
 char Rope::index(const unsigned int) const visszaadja a kapott indexű karaktert.
-- static Rope Rope::concat(Rope& r1, Rope& r2) konkatenál két Rope -t. Ehhez létre kell
+- [ ] static Rope Rope::concat(Rope& r1, Rope& r2) konkatenál két Rope -t. Ehhez létre kell
 hozni egy új gyökérelemet, aminek a bal gyereke lesz az r1 gyökere, jobb gyereke az r2
 gyökere. A visszaadott Rope tartalmazza r1, r2 tartalmát, az r1, r2 fák pedig üresek a
 művelet után. Ennek a műveletnek a komplexitása O(1).
-- static std::pair<Rope, Rope> Rope::split(Rope&, const unsigned int) egy Rope -t
+- [ ] static std::pair<Rope, Rope> Rope::split(Rope&, const unsigned int) egy Rope -t
 kettévág adott indexű karakternél. A visszaadott fák tartalmazzák a beadott Rope tartalmát,
 ami üres lesz a művelet után. A vágásnak több esete is van, érdemes átgondolni a
 lehetőségeket.
-- std::string Rope::report(unsigned int, unsigned int) const visszaadja a kapott két
+- [ ] std::string Rope::report(unsigned int, unsigned int) const visszaadja a kapott két
 index közötti szövegrészt.
-- A törlést és a beszúrást a TextEditor osztály fogja menedzselni a Rope::concat és a
+- [ ] A törlést és a beszúrást a TextEditor osztály fogja menedzselni a Rope::concat és a
 Rope::split függvények segítségével.
 
 Figyelj arra, hogy milyen operátorokra és konstruktorokra van szükséged a megvalósításhoz
@@ -53,13 +53,13 @@ Figyelj arra, hogy milyen operátorokra és konstruktorokra van szükséged a me
 
 ### TextEditor specifikációi
 
-- Legyen paraméter nélkülis és paraméteres konstruktor is ( std::string paraméter).
+- [ ] Legyen paraméter nélkülis és paraméteres konstruktor is ( std::string paraméter).
 unsigned int TextEditor::length() const visszaadja a szövegszerkesztőben lévő
 szöveg hosszát (pontosabban a Rope mezőben lévő szöveg hosszát).
-- void TextEditor::stepLeft() eggyel balra lépteti a kurzort.
-- void TextEditor::stepRight() eggyel jobbra lépteti a kurzort.
-- void TextEditor::moveCursor(const unsigned int) a kapott indexre állítja a kurzort.
-- void TextEditor::select(const unsigned int) kijelöli a kurzor és a kapott index közötti
+- [ ] void TextEditor::stepLeft() eggyel balra lépteti a kurzort.
+- [ ] void TextEditor::stepRight() eggyel jobbra lépteti a kurzort.
+- [ ] void TextEditor::moveCursor(const unsigned int) a kapott indexre állítja a kurzort.
+- [ ] void TextEditor::select(const unsigned int) kijelöli a kurzor és a kapott index közötti
 szövegrészt. A TextEditor osztály a kijelölésnél csak tárolja kurzortól különböző végének
 indexét, a szöveget lekérni az adatszerkezetből elég akkor, amikor valamilyen műveletet is el
 kell végezni vele. Ekkor egyrészt nincs felesleges fabejárás, másrészt könnyen tudjuk
@@ -67,23 +67,23 @@ vizsgálni, hogy éppen ki van-e jelölve valami (ugyanis üres kijelölésnél 
 selectionIndex ). Ezen felül a kurzor mozgatása a stepLeft, stepRight, moveCursor
 függvényekkel megszünteti a kijelölést. Végül figyelj, hogy az egyes műveletek után (lásd
 lentebb) mindig frissítsd a kijelölő index pozícióját is.
-- std::string TextEditor::report() const visszaadja az éppen kijelölt szövegrészt. Ha
+- [ ] std::string TextEditor::report() const visszaadja az éppen kijelölt szövegrészt. Ha
 nincs kijelölve semmi, akkor a függvény üres stringet ad vissza.
-- void TextEditor::insert(const std::string) az éppen kijelölt szövegrész helyére
+- [ ] void TextEditor::insert(const std::string) az éppen kijelölt szövegrész helyére
 beszúrja a kapott karaktertömböt. Ha nincs kijelölve semmi, akkor a kurzor aktuális
 pozíciójára szúr be.
-- void TextEditor::remove() kitörli az éppen kijelölt szövegrészt. Ha nincs kijelölve semmi,
+- [ ] void TextEditor::remove() kitörli az éppen kijelölt szövegrészt. Ha nincs kijelölve semmi,
 akkor a kurzortól jobbra lévő karaktert törli.
-- void TextEditor::ctrlC() a vágólapra másolja az éppen kijelölt szövegrészt. Ha nincs
+- [ ] void TextEditor::ctrlC() a vágólapra másolja az éppen kijelölt szövegrészt. Ha nincs
 kijelölve semmi, akkor a függvénynek nincs hatása.
-- void TextEditor::ctrlV() az éppen kijelölt szövegrész helyére beszúrja az utolsó lemásolt
+- [ ] void TextEditor::ctrlV() az éppen kijelölt szövegrész helyére beszúrja az utolsó lemásolt
 szövegrészt. Ha nincs ilyen, akkor a függvénynek nincs hatása.
-- void TextEditor::ctrlX() kivágja az éppen kijelölt szövegrészt, illetve a vágólapra
+- [ ] void TextEditor::ctrlX() kivágja az éppen kijelölt szövegrészt, illetve a vágólapra
 másolja azt. Ha nincs kijelölve semmi, akkor a függvénynek nincs hatása.
-- void TextEditor::ctrlA() kijelöli az egész szöveget.
-- void TextEditor::ctrlD() a kijelölt szövegrészt megduplázza. Ha nincs kijelölve semmi,
+- [ ] void TextEditor::ctrlA() kijelöli az egész szöveget.
+- [ ] void TextEditor::ctrlD() a kijelölt szövegrészt megduplázza. Ha nincs kijelölve semmi,
 akkor a függvénynek nincs hatása.
-- std::vector<unsigned int> TextEditor::ctrlF(const std::string) rákeres a kapott
+- [ ] std::vector<unsigned int> TextEditor::ctrlF(const std::string) rákeres a kapott
 karaktertömbre a szövegben és visszatér az összes előfordulás indexével. A keresést először
 a kurzor utáni, majd a kurzor előtti részben végezzük el. A keresésre elegendő egy naiv
 megoldást adni (tehát egy karaktertömböt kell létrehozni a kurzor utáni és kurzor előtti
@@ -95,7 +95,6 @@ megnézve, hogy minden egyes karakter megegyezik-e).
 
 - A megoldásnak le kell fordulnia a kiadott unit tesztekkel. Ehhez szükséges egy Rope és egy
 TextEditor nevű osztály, illetve szükségesek a szövegszerkesztős műveletek.
-
 - Forduljon -Werror -Wall -Wextra -pedantic kapcsolókkal.
 - Ne legyen memóriaszivárgás, segfault és hasonlók.
 - A tesztek nem ellenőrzik az összes esetet az egyes műveleteknél, ennek megfelelően
@@ -113,11 +112,11 @@ pontlevonással jár.
 használatával kell megírni ( concat , split és report mindenre elég), egyéb esetben nem
 adható maximális pontszám.
 # Plusz pontos kiegészítések
-## Bonyolultabb string matching algoritmus (5-10 p)
+## [ ] Bonyolultabb string matching algoritmus (5-10 p)
 A keresés során használt naiv megközelítés komplexitása igen előnytelen. A javított
 komplexitástól függően egy bonyolultabb string matching algoritmus implementásáért pluszpont
 jár.
-## Fa kiegyensúlyozása (10 p)
+## [ ] Fa kiegyensúlyozása (10 p)
 Természetesen a különböző műveletek során a Rope adatszerkezet is kiegyensúlyozatlanná
 válik. Egy könnyű kiegyensúlyozó algoritmus:
 Minden csúcshoz hozzárendelünk egy mélységet. A levelek mélysége 0, majd felfelé haladva
@@ -137,7 +136,7 @@ megfelelő indexre.
 Az algoritmus utolsó lépéseként balról jobbra konkatenáljuk a tömbben lévő fákat.
 Természetesen van lehetőség magasság alapú kiegyensúlyozásra is, önálló utánajárás után
 lehetőség van másmilyen kiegyensúlyozás implementására is (kivéve az eddig tanultakat).
-## Undo és redo (10 p)
+## [ ] Undo és redo (10 p)
 - void TextEditor::ctrlZ() függvény visszavonja az utolsó műveletet.
 - void TextEditor::ctrlY() függvény megismétli az utolsó műveletet.
 
