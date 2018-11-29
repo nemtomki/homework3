@@ -4,6 +4,9 @@
  *  Created on: 2018. nov. 28.
  *      Author: prajczer
  */
+#ifndef ROPE_CPP_
+#define ROPE_CPP_
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -13,14 +16,13 @@ class Rope{
 		Node *parent;
 		Node *left, *right;
 		unsigned int weight;
-		char* szoveg;
+		char szoveg[3];
 		bool is_leaf;
 		Node(){
 			parent = nullptr;
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			szoveg = new char[3];
 			is_leaf = false;
 		}
 		Node(string be){
@@ -28,9 +30,8 @@ class Rope{
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			szoveg = new char[3];
 			is_leaf = true;
-			if (be.size > 3) {
+			if (be.length() > 3) {
 				is_leaf = false;
 				string eleje = be.substr(0,(be.length() / 2));
 				string vege = be.substr((be.length() / 2), be.length());
@@ -39,8 +40,10 @@ class Rope{
 			} else {
 				for (size_t i = 0; i< be.size(); i++){
 					szoveg[i] = be[i];
+					std::cout << be[i];
 					weight ++;
 				}
+				std::cout << std::endl;
 			}
 
 		}
@@ -49,9 +52,8 @@ class Rope{
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			szoveg = new char[3];
 			is_leaf = true;
-			if (be.size > 3) {
+			if (be.length() > 3) {
 				is_leaf = false;
 				string eleje = be.substr(0,(be.length() / 2));
 				string vege = be.substr((be.length() / 2), be.length());
@@ -60,56 +62,76 @@ class Rope{
 			} else {
 				for (size_t i = 0; i< be.size(); i++){
 					szoveg[i] = be[i];
+					std::cout << szoveg[i];
 					weight ++;
 				}
+				std::cout << std::endl;
 			}
 		}
-		~Node();
 	};
 private:
 	unsigned int len;
 	Node *root;
 public:
-	Rope();
-	Rope(Node *gyok);
-	~Rope();
-	void _delete(Node *kezdet);
-	unsigned int length();
-	char index(const unsigned int) const;
+	//Rope();
+	//Rope(Node *gyok);
+	//Rope(string input);
+	//~Rope();
+	//void _delete(Node *kezdet);
+	//nsigned int length();
+
+	//char index(const unsigned int) const;
 	static Rope concat (Rope& r1, Rope& r2);
 	static std::pair<Rope, Rope> split (Rope&, const unsigned int);
 	std::string report(unsigned int, unsigned int) const;
+
+	Rope(){
+		len = 0;
+		root = nullptr;
+	}
+
+	Rope(Node *gyok){
+		len = 0;
+		root = gyok;
+	}
+	Rope(string input){
+		len = input.length();
+		root = new Node(input);
+		_print(root, std::cout);
+	}
+	~Rope(){
+		Rope::_delete(root);
+	}
+
+	void _delete(Node *from){
+		if (from != nullptr){
+			_delete(from->left);
+			_delete(from->right);
+			delete from;
+		}
+	}
+
+	unsigned int length(){
+		return len;
+	}
+
+	char index(const unsigned int x) const{
+		int current = 0;
+		Node *act = root;
+
+		return 'x';
+	}
+	std::ostream& _print(Node *i, std::ostream& o){
+		o << i->szoveg;
+		if (i->left != nullptr) {
+			_print(i->left, o);
+		}
+		if (i->right != nullptr) {
+			_print(i->right, o);
+		}
+		return o;
+	}
 };
 
-Rope::Rope(){
-	len = 0;
-	root = nullptr;
-}
-
-Rope::Rope(Node *gyok){
-	len = 0;
-	root = gyok;
-}
-
-Rope::~Rope(){
-	Rope::_delete(root);
-}
-
-void Rope::_delete(Node *from){
-	if (from != nullptr){
-		_delete(from->left);
-		_delete(from->right);
-		delete from;
-	}
-}
-
-unsigned int Rope::length(){
-	return len;
-}
-
-char Rope::index(const unsigned int x) const{
-	return 'x';
-}
-
-
+#endif /* ROPE_CPP_ */
 

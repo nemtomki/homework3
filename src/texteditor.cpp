@@ -4,6 +4,9 @@
  *  Created on: 2018. nov. 28.
  *      Author: prajczer
  */
+#ifndef TEXtEDITOR_CPP_
+#define TEXTEDITOR_CPP_
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -12,22 +15,24 @@ class TextEditor{
 private:
 	//valtozoi
 public:
-	unsigned int TextEditor::length() const;
-	void TextEditor::insert(string input);
-	void TextEditor::stepLeft();
-	void TextEditor::stepRight();
-	void TextEditor::moveCursor(const unsigned int);
-	void TextEditor::select(const unsigned int);
-	std::string TextEditor::report() const;
-	void TextEditor::remove();
-	void TextEditor::ctrlC();
-	void TextEditor::ctrlV();
-	void TextEditor::ctrlX();
-	void TextEditor::ctrlA();
-	void TextEditor::ctrlD();
-	std::vector<unsigned int> TextEditor::ctrlF(const std::string);
+	TextEditor();
+	TextEditor(std::string input);
+	unsigned int length() const;
+	void insert(std::string input);
+	void stepLeft();
+	void stepRight();
+	void moveCursor(const unsigned int);
+	void select(const unsigned int);
+	std::string report() const;
+	void remove();
+	void ctrlC();
+	void ctrlV();
+	void ctrlX();
+	void ctrlA();
+	void ctrlD();
+	std::vector<unsigned int> ctrlF(const std::string);
 
 };
 
-
+#endif /* TEXTEDITOR_CPP_ */
 
