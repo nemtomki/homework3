@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
     Rope rope("The quick brown fox jumps over the lazy dog.");
     CHECK_EQ("The quick brown fox jumps over the lazy dog.", rope.report(0, 43));
   }
-/*
+
   TEST("Create a TextEditor and add a few elements. Length should grow.", 5) {
     TextEditor texteditor("The");
     CHECK_EQ(3, texteditor.length());
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
     texteditor.insert(" brown fox jumps over the lazy dog.");
     CHECK_EQ(44, texteditor.length());
   }
-
+/*
   TEST("Create a TextEditor and add a few elements. Elements should be in the tree, should get them using ctrlF().", 10) {
     TextEditor texteditor;
     texteditor.insert("Adatszerkezetek");

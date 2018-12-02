@@ -28,7 +28,7 @@ class Rope{
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			is_leaf = false;
+			is_leaf = true;
 		}
 		Node(string be){
 			parent = nullptr;
@@ -41,6 +41,7 @@ class Rope{
 				string eleje = be.substr(0,(be.length() / 2));
 				string vege = be.substr((be.length() / 2), be.length());
 				left = new Node(eleje, this);
+				weight += left->weight;
 				right = new Node(vege, this);
 			} else {
 				for (size_t i = 0; i< be.size(); i++){
@@ -83,7 +84,7 @@ public:
 	//Rope(string input);
 	//~Rope();
 	//void _delete(Node *kezdet);
-	//nsigned int length();
+	//unsigned int length();
 
 	//char index(const unsigned int) const;
 	//static Rope concat (Rope& r1, Rope& r2);
@@ -101,7 +102,6 @@ public:
 		len = input.length();
 		root = new Node(input);
 		_print(root, std::cout);
-		std::cout << "mi a fasz:" << index(50);
 	}
 	~Rope(){
 		Rope::_delete(root);
@@ -123,8 +123,13 @@ public:
 		char returning;
 		int hol = x;
 		int kezdet = 0;
-		kereso(root, kezdet, hol, returning);
-		return returning;
+		if (x <= len && x >= 0){
+			kereso(root, kezdet, hol, returning);
+			return returning;
+		} else {
+			std::cout << "Hibas index!" << std::endl;
+			return ' ';
+		}
 	}
 	std::ostream& _print(Node *i, std::ostream& o){
 		char* str = i->szoveg;
@@ -175,6 +180,17 @@ public:
 		Rope* uj_rope = new Rope(uj_root);
 		uj_rope->len = r1.len + r2.len;
 		return *uj_rope;
+	}
+
+	void insert(std::string befele){
+		Node *level = root;
+		std::cout << "we cooo";
+		while (level->is_leaf){
+			std::cout << level->is_leaf;
+			level = level->right;
+		}
+		std::cout << "Ez a vege" << level->szoveg;
+
 	}
 };
 
