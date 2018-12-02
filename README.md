@@ -32,10 +32,10 @@ std::string pufferrel kezelni).
 konstruktorban a szöveg elosztása a levelek között (így a felépített fastruktúra) tetszőleges
 lehet (például lehet a szöveget három karakterenként felosztani, vagy lehet hosszfelezéssel
 felépíteni a fát).
-- [ ] A Rope tárolja a benne lévő karakterek számát, amit az unsigned int Rope::length()
+- [X] A Rope tárolja a benne lévő karakterek számát, amit az unsigned int Rope::length()
 const függvény ad vissza. A hosszt O(1) időben kell karbantartani.
-- [ ] char Rope::index(const unsigned int) const visszaadja a kapott indexű karaktert.
-- [ ] static Rope Rope::concat(Rope& r1, Rope& r2) konkatenál két Rope -t. Ehhez létre kell
+- [X] char Rope::index(const unsigned int) const visszaadja a kapott indexű karaktert.
+- [X] static Rope Rope::concat(Rope& r1, Rope& r2) konkatenál két Rope -t. Ehhez létre kell
 hozni egy új gyökérelemet, aminek a bal gyereke lesz az r1 gyökere, jobb gyereke az r2
 gyökere. A visszaadott Rope tartalmazza r1, r2 tartalmát, az r1, r2 fák pedig üresek a
 művelet után. Ennek a műveletnek a komplexitása O(1).
@@ -43,9 +43,9 @@ művelet után. Ennek a műveletnek a komplexitása O(1).
 kettévág adott indexű karakternél. A visszaadott fák tartalmazzák a beadott Rope tartalmát,
 ami üres lesz a művelet után. A vágásnak több esete is van, érdemes átgondolni a
 lehetőségeket.
-- [ ] std::string Rope::report(unsigned int, unsigned int) const visszaadja a kapott két
+- [X] std::string Rope::report(unsigned int, unsigned int) const visszaadja a kapott két
 index közötti szövegrészt.
-- [ ] A törlést és a beszúrást a TextEditor osztály fogja menedzselni a Rope::concat és a
+- [X] A törlést és a beszúrást a TextEditor osztály fogja menedzselni a Rope::concat és a
 Rope::split függvények segítségével.
 
 Figyelj arra, hogy milyen operátorokra és konstruktorokra van szükséged a megvalósításhoz
