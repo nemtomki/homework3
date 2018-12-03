@@ -98,8 +98,9 @@ public:
 		}
 		if (ettol >= 0 && ettol < int(szoveg->length()) && eddig >= 0 && eddig < int(szoveg->length())){
 			return szoveg->report(ettol, eddig);
+		} else {
+			return "";
 		}
-		return "";
 	}
 };
 

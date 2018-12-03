@@ -39,7 +39,7 @@ const függvény ad vissza. A hosszt O(1) időben kell karbantartani.
 hozni egy új gyökérelemet, aminek a bal gyereke lesz az r1 gyökere, jobb gyereke az r2
 gyökere. A visszaadott Rope tartalmazza r1, r2 tartalmát, az r1, r2 fák pedig üresek a
 művelet után. Ennek a műveletnek a komplexitása O(1).
-- [ ] static std::pair<Rope, Rope> Rope::split(Rope&, const unsigned int) egy Rope -t
+- [X] static std::pair<Rope, Rope> Rope::split(Rope&, const unsigned int) egy Rope -t
 kettévág adott indexű karakternél. A visszaadott fák tartalmazzák a beadott Rope tartalmát,
 ami üres lesz a művelet után. A vágásnak több esete is van, érdemes átgondolni a
 lehetőségeket.
@@ -53,13 +53,13 @@ Figyelj arra, hogy milyen operátorokra és konstruktorokra van szükséged a me
 
 ### TextEditor specifikációi
 
-- [ ] Legyen paraméter nélkülis és paraméteres konstruktor is ( std::string paraméter).
-unsigned int TextEditor::length() const visszaadja a szövegszerkesztőben lévő
+- [X] Legyen paraméter nélkülis és paraméteres konstruktor is ( std::string paraméter).
+- [X] unsigned int TextEditor::length() const visszaadja a szövegszerkesztőben lévő
 szöveg hosszát (pontosabban a Rope mezőben lévő szöveg hosszát).
-- [ ] void TextEditor::stepLeft() eggyel balra lépteti a kurzort.
-- [ ] void TextEditor::stepRight() eggyel jobbra lépteti a kurzort.
-- [ ] void TextEditor::moveCursor(const unsigned int) a kapott indexre állítja a kurzort.
-- [ ] void TextEditor::select(const unsigned int) kijelöli a kurzor és a kapott index közötti
+- [X] void TextEditor::stepLeft() eggyel balra lépteti a kurzort.
+- [X] void TextEditor::stepRight() eggyel jobbra lépteti a kurzort.
+- [X] void TextEditor::moveCursor(const unsigned int) a kapott indexre állítja a kurzort.
+- [X] void TextEditor::select(const unsigned int) kijelöli a kurzor és a kapott index közötti
 szövegrészt. A TextEditor osztály a kijelölésnél csak tárolja kurzortól különböző végének
 indexét, a szöveget lekérni az adatszerkezetből elég akkor, amikor valamilyen műveletet is el
 kell végezni vele. Ekkor egyrészt nincs felesleges fabejárás, másrészt könnyen tudjuk
@@ -67,9 +67,9 @@ vizsgálni, hogy éppen ki van-e jelölve valami (ugyanis üres kijelölésnél 
 selectionIndex ). Ezen felül a kurzor mozgatása a stepLeft, stepRight, moveCursor
 függvényekkel megszünteti a kijelölést. Végül figyelj, hogy az egyes műveletek után (lásd
 lentebb) mindig frissítsd a kijelölő index pozícióját is.
-- [ ] std::string TextEditor::report() const visszaadja az éppen kijelölt szövegrészt. Ha
+- [X] std::string TextEditor::report() const visszaadja az éppen kijelölt szövegrészt. Ha
 nincs kijelölve semmi, akkor a függvény üres stringet ad vissza.
-- [ ] void TextEditor::insert(const std::string) az éppen kijelölt szövegrész helyére
+- [X] void TextEditor::insert(const std::string) az éppen kijelölt szövegrész helyére
 beszúrja a kapott karaktertömböt. Ha nincs kijelölve semmi, akkor a kurzor aktuális
 pozíciójára szúr be.
 - [ ] void TextEditor::remove() kitörli az éppen kijelölt szövegrészt. Ha nincs kijelölve semmi,
