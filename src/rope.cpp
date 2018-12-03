@@ -88,7 +88,7 @@ public:
 
 	//char index(const unsigned int) const;
 	//static Rope concat (Rope& r1, Rope& r2);
-	static std::pair<Rope, Rope> split (Rope&, const unsigned int);
+	//static std::pair<Rope, Rope> split (Rope&, const unsigned int);
 	Rope(){
 		len = 0;
 		root = nullptr;
@@ -101,11 +101,32 @@ public:
 	Rope(string input){
 		len = input.length();
 		root = new Node(input);
+		std::cout << "The rope: " << std::endl;
 		_print(root, std::cout);
 	}
 	~Rope(){
 		Rope::_delete(root);
 	}
+	Rope&  operator =(Rope & r){
+		if (&r != this){
+			len = 0;
+			delete root;
+			std::string teljese = r.report(0, r.length());
+			root = new Node(teljese);
+			len = teljese.length();
+		}
+		return *this;
+	}
+	Rope operator&(Rope & r){
+			if (&r != this){
+				len = 0;
+				delete root;
+				std::string teljese = r.report(0, r.length());
+				root = new Node(teljese);
+				len = teljese.length();
+			}
+			return *this;
+		}
 
 	void _delete(Node *from){
 		if (from != nullptr){
@@ -115,7 +136,7 @@ public:
 		}
 	}
 
-	unsigned int length(){
+	unsigned int length() const{
 		return len;
 	}
 
@@ -175,23 +196,25 @@ public:
 
 	static Rope concat (Rope& r1, Rope& r2) {
 		Node* uj_root = new Node();
-		uj_root->left = r1.root;
-		uj_root->right = r2.root;
+		Rope r1_c = r1;
+		Rope r2_c = r2;
+		uj_root->left = r1_c.root;
+		uj_root->right = r2_c.root;
 		Rope* uj_rope = new Rope(uj_root);
-		uj_rope->len = r1.len + r2.len;
+		uj_rope->len = r1_c.length() + r2_c.length();
+		std::cout << std::endl << "hossz" << r1.length() << "+" << r2.length() << "=" << uj_rope->len << std::endl;
 		return *uj_rope;
 	}
 
-	void insert(std::string befele){
-		Node *level = root;
-		std::cout << "we cooo";
-		while (level->is_leaf){
-			std::cout << level->is_leaf;
-			level = level->right;
-		}
-		std::cout << "Ez a vege" << level->szoveg;
+	static std::pair<Rope, Rope> split (Rope& rope, const unsigned int inx) {
+		std::pair<Rope, Rope> eredmeny;
+		std::string eleje = rope.report(0, inx);
+		std::string vege = rope.report(inx, rope.length());
 
+		rope.~Rope();
+		return eredmeny;
 	}
+
 };
 
 #endif /* ROPE_CPP_ */
