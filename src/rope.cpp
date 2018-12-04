@@ -13,6 +13,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <cstring>
+#include "exception.cpp"
 using namespace std;
 
 class Rope{
@@ -140,15 +141,15 @@ public:
 		return len;
 	}
 
-	char index(const unsigned int x) {
+	char index(const unsigned int x) const{
 		char returning;
-		int hol = x;
+		int* hol = new int(x);
 		int kezdet = 0;
 		if (x <= len && x >= 0){
 			kereso(root, kezdet, hol, returning);
 			return returning;
 		} else {
-			std::cout << "Hibas index!" << std::endl;
+			throw OutOfIndexException();
 			return ' ';
 		}
 	}
@@ -168,11 +169,11 @@ public:
 		return o;
 	}
 
-	char& kereso(Node *i, int& akt_hely, int hely, char &returned){
+	char kereso(Node *i, int& akt_hely, int* hely, char &returned) const{
 		char* str = i->szoveg;
 		for (size_t i =0; i < 3; i++){
 			if (0 != isprint(str[i]) && str[i] != '\n'){
-				if (hely == akt_hely){
+				if (*hely == akt_hely){
 					returned = str[i];
 				}
 				akt_hely ++;
@@ -186,11 +187,19 @@ public:
 		}
 		return returned;
 	}
-	std::string report(int ettol, int eddig){
+	std::string report(unsigned int ettol, unsigned int eddig){
 		std::string returned;
-		for (int i = ettol; i <= eddig; i++){
-			returned += index(i);
+		if (ettol < 0 || ettol >= len || eddig < 0 || eddig >= len ){
+			throw OutOfIndexException();
+		} else {
+			if (ettol > eddig){
+				std::swap(ettol, eddig);
+				}
+			for (int i = int(ettol); i <= int(eddig); i++){
+				returned += index(i);
+				}
 		}
+
 	return returned;
 	}
 

@@ -12,6 +12,7 @@
 #include <string>
 #include <list>
 #include "rope.cpp"
+#include "exception.cpp"
 
 class TextEditor{
 private:
@@ -54,7 +55,7 @@ public:
 		//std::cout << szoveg->length();
 		return szoveg->length();
 	}
-	void insert(std::string befele){
+	void insert(const std::string befele){
 		std::string teljes= szoveg->report(0, (szoveg->length())-1) + befele;
 		szoveg->~Rope();
 		szoveg = new Rope(teljes);
@@ -64,7 +65,7 @@ public:
 		if (actual_pos <= int(szoveg->length())){
 			actual_pos ++;
 		} else {
-			std::cout << "A szoveg vegere ertunk!" << std::endl;
+			throw UnderFlowException();
 		}
 	}
 
@@ -72,7 +73,7 @@ public:
 		if (actual_pos >= 0){
 			actual_pos --;
 		} else {
-			std::cout << "A szoveg elejere ertunk" << std::endl;
+			throw OverFlowException();
 		}
 
 	}
@@ -83,11 +84,11 @@ public:
 		if (eddig >= 0 && eddig <= szoveg->length()){
 			selected = eddig;
 		} else {
-			std::cout << "Hibas ertek" << std::endl;
+			throw OutOfIndexException();
 		}
 	}
 
-	std::string report() {
+	std::string report() const{
 		int ettol, eddig;
 		if (actual_pos > selected){
 			eddig = actual_pos;
