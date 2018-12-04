@@ -106,13 +106,13 @@ int main(int argc, char *argv[]) {
     CHECK_EQ(38, r3.length());
     CHECK_EQ(0, r1.length());
     CHECK_EQ(0, r2.length());
-
+    std::cout << "tartalma" << r3.report(0,37) << r3.length();
     std::pair<Rope, Rope> splitted = Rope::split(r3, 13);
     CHECK_EQ(0, r3.length());
     CHECK_EQ(13, splitted.first.length());
     CHECK_EQ(25, splitted.second.length());
   }
-
+/*
   TEST("Create a TextEditor and add a few elements. Length should grow.", 5) {
     TextEditor texteditor("The");
     CHECK_EQ(3, texteditor.length());

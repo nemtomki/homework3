@@ -104,8 +104,10 @@ public:
 		root = new Node(input);
 		std::cout << "The rope: " << std::endl;
 		_print(root, std::cout);
+		std::cout << std::endl;
 	}
 	~Rope(){
+		len = 0;
 		Rope::_delete(root);
 	}
 	Rope&  operator =(Rope & r){
@@ -189,14 +191,14 @@ public:
 	}
 	std::string report(unsigned int ettol, unsigned int eddig){
 		std::string returned;
-		if (ettol < 0 || ettol >= len || eddig < 0 || eddig >= len ){
-			throw OutOfIndexException();
+		if (ettol <= 0 || ettol >= len || eddig <= 0 || eddig >= len ){
+			//throw OutOfIndexException();
 		} else {
 			if (ettol > eddig){
 				std::swap(ettol, eddig);
 				}
 			for (int i = int(ettol); i <= int(eddig); i++){
-				returned += index(i);
+				returned += char(index(i));
 				}
 		}
 
@@ -209,17 +211,40 @@ public:
 		Rope r2_c = r2;
 		uj_root->left = r1_c.root;
 		uj_root->right = r2_c.root;
+		uj_root->right->parent  = uj_root->left->parent = uj_root;
 		Rope* uj_rope = new Rope(uj_root);
 		uj_rope->len = r1_c.length() + r2_c.length();
-		std::cout << std::endl << "hossz" << r1.length() << "+" << r2.length() << "=" << uj_rope->len << std::endl;
+		//std::cout << std::endl << "hossz" << r1.length() << "+" << r2.length() << "=" << uj_rope->len << std::endl;
+		r1.~Rope();
+		r2.~Rope();
+		/*std::string eleje = r1.report(0, r1.length());
+		std::string vege = r2.report(0, r2.length());
+		Node* bal = new Node(eleje);
+		Node* jobb = new Node(vege);
+		r1._delete(r1.root);
+		r2._delete(r2.root);
+		Node* uj_root = new Node();
+		uj_root->weight = eleje.length();
+		uj_root->left = bal;
+		uj_root->right = jobb;
+		uj_root->right->parent  = uj_root->left->parent = uj_root;
+		Rope* uj_rope = new Rope(uj_root);
+		uj_rope->len = eleje.length() + vege.length();
+		std::cout<< eleje.length() << vege.length();
+		std::cout << uj_rope->length();*/
 		return *uj_rope;
 	}
 
 	static std::pair<Rope, Rope> split (Rope& rope, const unsigned int inx) {
 		std::pair<Rope, Rope> eredmeny;
-		std::string eleje = rope.report(0, inx);
-		std::string vege = rope.report(inx, rope.length());
-
+		std::string *eleje = new std::string(rope.report(0, inx));
+		std::string *vege = new std::string(rope.report(inx, rope.length()));
+		Rope* first = new Rope(*eleje);
+		Rope* second = new Rope(*vege);
+		eredmeny.first = *first;
+		eredmeny.second = *second;
+		std::cout << *eleje << *vege;
+		std::cout << std::endl << first->length() << "  a masodik  " << second->length() << std::endl;
 		rope.~Rope();
 		return eredmeny;
 	}

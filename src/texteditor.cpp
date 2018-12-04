@@ -29,7 +29,7 @@ public:
 	//void moveCursor(const unsigned int);
 	//void select(const unsigned int);
 	//std::string report() const;
-	void remove();
+	//void remove();
 	void ctrlC();
 	void ctrlV();
 	void ctrlX();
@@ -40,15 +40,17 @@ public:
 	TextEditor(){
 		actual_pos = 0;
 		szoveg = new Rope();
-		selected = 0;
+		selected = -1;
 	}
 
 	TextEditor(std::string input){
 		actual_pos = 0;
 		szoveg = new Rope(input);
-		selected = 0;
+		selected = -1;
 	}
 	~TextEditor(){
+		actual_pos = 0;
+		selected = -1;
 		delete szoveg;
 	}
 	unsigned int length() const{
@@ -101,6 +103,15 @@ public:
 			return szoveg->report(ettol, eddig);
 		} else {
 			return "";
+		}
+	}
+	void remove(){
+		if (actual_pos == -1){
+			;
+		} else {
+			if (actual_pos > selected){
+
+			}
 		}
 	}
 };
