@@ -80,10 +80,10 @@ kijelölve semmi, akkor a függvénynek nincs hatása.
 szövegrészt. Ha nincs ilyen, akkor a függvénynek nincs hatása.
 - [ ] void TextEditor::ctrlX() kivágja az éppen kijelölt szövegrészt, illetve a vágólapra
 másolja azt. Ha nincs kijelölve semmi, akkor a függvénynek nincs hatása.
-- [ ] void TextEditor::ctrlA() kijelöli az egész szöveget.
+- [X] void TextEditor::ctrlA() kijelöli az egész szöveget.
 - [ ] void TextEditor::ctrlD() a kijelölt szövegrészt megduplázza. Ha nincs kijelölve semmi,
 akkor a függvénynek nincs hatása.
-- [ ] std::vector<unsigned int> TextEditor::ctrlF(const std::string) rákeres a kapott
+- [X] std::vector<unsigned int> TextEditor::ctrlF(const std::string) rákeres a kapott
 karaktertömbre a szövegben és visszatér az összes előfordulás indexével. A keresést először
 a kurzor utáni, majd a kurzor előtti részben végezzük el. A keresésre elegendő egy naiv
 megoldást adni (tehát egy karaktertömböt kell létrehozni a kurzor utáni és kurzor előtti

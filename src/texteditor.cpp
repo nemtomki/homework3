@@ -33,9 +33,9 @@ public:
 	void ctrlC();
 	void ctrlV();
 	void ctrlX();
-	void ctrlA();
+
 	void ctrlD();
-	std::vector<unsigned int> ctrlF(const std::string);
+	//std::vector<unsigned int> ctrlF(const std::string);
 
 	TextEditor(){
 		actual_pos = 0;
@@ -58,7 +58,7 @@ public:
 		return szoveg->length();
 	}
 	void insert(const std::string befele){
-		std::string teljes= szoveg->report(0, (szoveg->length())-1) + befele;
+		std::string teljes= szoveg->report(0, (szoveg->length())) + befele;
 		szoveg->~Rope();
 		szoveg = new Rope(teljes);
 	}
@@ -66,6 +66,7 @@ public:
 	void stepLeft(){
 		if (actual_pos <= int(szoveg->length())){
 			actual_pos ++;
+			selected = actual_pos;
 		} else {
 			throw UnderFlowException();
 		}
@@ -74,19 +75,27 @@ public:
 	void stepRight(){
 		if (actual_pos >= 0){
 			actual_pos --;
+			selected = actual_pos;
 		} else {
 			throw OverFlowException();
 		}
 
 	}
 	void moveCursor(const unsigned int x){
-		actual_pos = x;
+		if (x >= 0 && x <= szoveg->length()){
+			actual_pos = x;
+			selected = x;
+		} else {
+			actual_pos = length();
+			selected = length();
+		}
+
 	}
 	void select(const unsigned int eddig){
 		if (eddig >= 0 && eddig <= szoveg->length()){
 			selected = eddig;
 		} else {
-			throw OutOfIndexException();
+			selected = length();
 		}
 	}
 
@@ -105,13 +114,35 @@ public:
 			return "";
 		}
 	}
-	void remove(){
-		if (actual_pos == -1){
-			;
-		} else {
-			if (actual_pos > selected){
-
+	std::vector<unsigned int> ctrlF(const std::string wanted){
+		std::string teljes = szoveg->report(0, length());
+		std::vector<unsigned int> returning;
+		int hosszunk = wanted.length();
+		for (unsigned int i = 0; i < length(); i++){
+			int lett = 1;
+			for (int j = 0; j < hosszunk; j++){
+				if ( wanted[j] != teljes[i+j]){
+					lett = 0;
+				}
 			}
+			if ( lett == 1){
+				returning.push_back(i);
+			}
+		}
+		return returning;
+	}
+	void ctrlA(){
+		actual_pos = 0;
+		selected = length();
+	}
+
+	void remove(){
+		if (selected != -1){
+			std::pair<Rope, Rope> elsok = szoveg->split(*szoveg, actual_pos);
+			std::pair<Rope, Rope> masodikak = szoveg->split(*szoveg, selected);
+			std::cout << elsok.first.length() << masodikak.second.length() << actual_pos << selected;
+			Rope uj_szoveg = szoveg->concat(elsok.first, masodikak.second);
+			szoveg = &uj_szoveg;
 		}
 	}
 };

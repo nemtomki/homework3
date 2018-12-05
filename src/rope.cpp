@@ -15,63 +15,62 @@
 #include <cstring>
 #include "exception.cpp"
 using namespace std;
+const int global_char_size = 3;
 
 class Rope{
 	struct Node {
 		Node *parent;
 		Node *left, *right;
 		unsigned int weight;
-		char szoveg[4] = {'\n','\n','\n','\0'};
-
+		char szoveg[global_char_size];
 		bool is_leaf;
 		Node(){
 			parent = nullptr;
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			is_leaf = true;
+			is_leaf = false;
 		}
 		Node(string be){
 			parent = nullptr;
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			is_leaf = true;
-			if (be.length() > 3) {
-				is_leaf = false;
+			is_leaf = false;
+			if (be.length() > global_char_size) {
 				string eleje = be.substr(0,(be.length() / 2));
 				string vege = be.substr((be.length() / 2), be.length());
+				weight = eleje.length();
 				left = new Node(eleje, this);
-				weight += left->weight;
 				right = new Node(vege, this);
 			} else {
-				for (size_t i = 0; i< be.size(); i++){
+				is_leaf = true;
+				weight = be.length();
+				for (size_t i = 0; i< be.length(); i++){
 					szoveg[i] = be[i];
-					std::cout << be[i];
-					weight ++;
 				}
-				std::cout << std::endl;
 			}
-
 		}
 		Node(string be, Node *szulo){
 			parent = szulo;
 			left = nullptr;
 			right = nullptr;
 			weight = 0;
-			is_leaf = true;
-			if (be.length() > 3) {
-				is_leaf = false;
+			is_leaf = false;
+			if (be.length() > global_char_size) {
 				string eleje = be.substr(0,(be.length() / 2));
 				string vege = be.substr((be.length() / 2), be.length());
+				weight = eleje.length();
 				left = new Node(eleje, this);
 				right = new Node(vege, this);
 			} else {
-				for (size_t i = 0; i< be.size(); i++){
+				is_leaf = true;
+				for (size_t i = 0; i< be.length(); i++){
 					szoveg[i] = be[i];
 					//std::cout << szoveg[i];
-					weight ++;
+
 				}
+				weight = be.size();
 				//std::cout << std::endl;
 			}
 		}
@@ -98,13 +97,12 @@ public:
 	Rope(Node *gyok){
 		len = 0;
 		root = gyok;
+		updateLength(root, len);
+
 	}
 	Rope(string input){
 		len = input.length();
 		root = new Node(input);
-		std::cout << "The rope: " << std::endl;
-		_print(root, std::cout);
-		std::cout << std::endl;
 	}
 	~Rope(){
 		len = 0;
@@ -120,7 +118,7 @@ public:
 		}
 		return *this;
 	}
-	Rope operator&(Rope & r){
+	/*Rope operator&(Rope & r){
 			if (&r != this){
 				len = 0;
 				delete root;
@@ -129,8 +127,13 @@ public:
 				len = teljese.length();
 			}
 			return *this;
+		}*/
+	void updateLength(Node *x, unsigned int hossz){
+		if (x != nullptr){
+			hossz += x->weight;
+			updateLength(x->right, hossz);
 		}
-
+	}
 	void _delete(Node *from){
 		if (from != nullptr){
 			_delete(from->left);
@@ -143,21 +146,17 @@ public:
 		return len;
 	}
 
-	char index(const unsigned int x) const{
-		char returning;
-		int* hol = new int(x);
-		int kezdet = 0;
-		if (x <= len && x >= 0){
-			kereso(root, kezdet, hol, returning);
-			return returning;
+	char index(const unsigned int x){
+		if (x < len && x >= 0){
+			return kereso(root, x);
 		} else {
-			throw OutOfIndexException();
 			return ' ';
 		}
 	}
+	//elejen hasznaltam csak a printet, most mar nem kell
 	std::ostream& _print(Node *i, std::ostream& o){
 		char* str = i->szoveg;
-		for (size_t i = 0; i < 3; i++){
+		for (size_t i = 0; i < global_char_size; i++){
 			if (0 != isprint(str[i]) && str[i] != '\n'){
 			o << str[i];
 			}
@@ -170,59 +169,30 @@ public:
 		}
 		return o;
 	}
-
-	char kereso(Node *i, int& akt_hely, int* hely, char &returned) const{
-		char* str = i->szoveg;
-		for (size_t i =0; i < 3; i++){
-			if (0 != isprint(str[i]) && str[i] != '\n'){
-				if (*hely == akt_hely){
-					returned = str[i];
-				}
-				akt_hely ++;
-			}
+	char kereso(Node *i, unsigned int hely) const {
+		if (i->weight <= hely){
+			return kereso (i->right, hely - i->weight);
 		}
-		if (i->left != nullptr) {
-			kereso(i->left, akt_hely, hely, returned);
+		if (i->left != nullptr){
+			return kereso(i->left, hely);
 		}
-		if (i->right != nullptr) {
-			kereso(i->right, akt_hely, hely, returned);
-		}
-		return returned;
+		return i->szoveg[hely];
 	}
 	std::string report(unsigned int ettol, unsigned int eddig){
 		std::string returned;
-		if (ettol <= 0 || ettol >= len || eddig <= 0 || eddig >= len ){
-			//throw OutOfIndexException();
-		} else {
-			if (ettol > eddig){
-				std::swap(ettol, eddig);
-				}
-			for (int i = int(ettol); i <= int(eddig); i++){
-				returned += char(index(i));
-				}
+		for (unsigned int i = ettol; i<eddig; i++){
+			returned += index(i);
 		}
-
 	return returned;
 	}
 
 	static Rope concat (Rope& r1, Rope& r2) {
-		Node* uj_root = new Node();
-		Rope r1_c = r1;
-		Rope r2_c = r2;
-		uj_root->left = r1_c.root;
-		uj_root->right = r2_c.root;
-		uj_root->right->parent  = uj_root->left->parent = uj_root;
-		Rope* uj_rope = new Rope(uj_root);
-		uj_rope->len = r1_c.length() + r2_c.length();
-		//std::cout << std::endl << "hossz" << r1.length() << "+" << r2.length() << "=" << uj_rope->len << std::endl;
-		r1.~Rope();
-		r2.~Rope();
-		/*std::string eleje = r1.report(0, r1.length());
+		std::string eleje = r1.report(0, r1.length());
 		std::string vege = r2.report(0, r2.length());
 		Node* bal = new Node(eleje);
 		Node* jobb = new Node(vege);
-		r1._delete(r1.root);
-		r2._delete(r2.root);
+		r1.~Rope();
+		r2.~Rope();
 		Node* uj_root = new Node();
 		uj_root->weight = eleje.length();
 		uj_root->left = bal;
@@ -230,8 +200,6 @@ public:
 		uj_root->right->parent  = uj_root->left->parent = uj_root;
 		Rope* uj_rope = new Rope(uj_root);
 		uj_rope->len = eleje.length() + vege.length();
-		std::cout<< eleje.length() << vege.length();
-		std::cout << uj_rope->length();*/
 		return *uj_rope;
 	}
 
@@ -243,8 +211,6 @@ public:
 		Rope* second = new Rope(*vege);
 		eredmeny.first = *first;
 		eredmeny.second = *second;
-		std::cout << *eleje << *vege;
-		std::cout << std::endl << first->length() << "  a masodik  " << second->length() << std::endl;
 		rope.~Rope();
 		return eredmeny;
 	}
