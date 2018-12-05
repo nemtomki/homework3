@@ -72,16 +72,16 @@ nincs kijelölve semmi, akkor a függvény üres stringet ad vissza.
 - [X] void TextEditor::insert(const std::string) az éppen kijelölt szövegrész helyére
 beszúrja a kapott karaktertömböt. Ha nincs kijelölve semmi, akkor a kurzor aktuális
 pozíciójára szúr be.
-- [ ] void TextEditor::remove() kitörli az éppen kijelölt szövegrészt. Ha nincs kijelölve semmi,
+- [X] void TextEditor::remove() kitörli az éppen kijelölt szövegrészt. Ha nincs kijelölve semmi,
 akkor a kurzortól jobbra lévő karaktert törli.
-- [ ] void TextEditor::ctrlC() a vágólapra másolja az éppen kijelölt szövegrészt. Ha nincs
+- [X] void TextEditor::ctrlC() a vágólapra másolja az éppen kijelölt szövegrészt. Ha nincs
 kijelölve semmi, akkor a függvénynek nincs hatása.
-- [ ] void TextEditor::ctrlV() az éppen kijelölt szövegrész helyére beszúrja az utolsó lemásolt
+- [X] void TextEditor::ctrlV() az éppen kijelölt szövegrész helyére beszúrja az utolsó lemásolt
 szövegrészt. Ha nincs ilyen, akkor a függvénynek nincs hatása.
-- [ ] void TextEditor::ctrlX() kivágja az éppen kijelölt szövegrészt, illetve a vágólapra
+- [X] void TextEditor::ctrlX() kivágja az éppen kijelölt szövegrészt, illetve a vágólapra
 másolja azt. Ha nincs kijelölve semmi, akkor a függvénynek nincs hatása.
 - [X] void TextEditor::ctrlA() kijelöli az egész szöveget.
-- [ ] void TextEditor::ctrlD() a kijelölt szövegrészt megduplázza. Ha nincs kijelölve semmi,
+- [X] void TextEditor::ctrlD() a kijelölt szövegrészt megduplázza. Ha nincs kijelölve semmi,
 akkor a függvénynek nincs hatása.
 - [X] std::vector<unsigned int> TextEditor::ctrlF(const std::string) rákeres a kapott
 karaktertömbre a szövegben és visszatér az összes előfordulás indexével. A keresést először
